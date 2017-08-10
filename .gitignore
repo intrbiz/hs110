@@ -1,0 +1,12 @@
+.project
+.classpath
+.settings/
+.directory
+target/
+*~
+*.kate-swp
+*/cfg
+bergamot-core/bergamot.xml
+bergamot-ui/bergamot.xml
+bergamot-agent-manager/agent-manager.xml
+bergamot-agent-manager/certs
