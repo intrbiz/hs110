@@ -10,8 +10,8 @@ public class Example {
     public static void main(String[] args) throws Exception {
 
         HS110Client plug = new HS110Client("10.19.32.228");
-        System.out.println(plug.sysInfo());
-        System.out.println(plug.on());
+        plug.sysInfo();
+        plug.on();
         //
         for (int i = 0; i < 10; i++)
         {
@@ -20,14 +20,14 @@ public class Example {
             Thread.sleep(5000);
         }
         //
-        System.out.println(plug.ledOff());
+        plug.ledOff();
         Thread.sleep(5000);
-        System.out.println(plug.ledOn());
+        plug.ledOn();
         Thread.sleep(5000);
         //
-        System.out.println(plug.off());
+        plug.off();
         Thread.sleep(5000);
-        System.out.println(plug.on());
+        plug.on();
 
     }
 
