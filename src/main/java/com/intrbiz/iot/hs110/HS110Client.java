@@ -53,7 +53,8 @@ public class HS110Client
     private <T> T parse(String input, Class<T> type) throws IOException
     {
         if (input == null) return null;
-        System.out.println("Parsing: " + input);
+        //Discuss with @intrbiz to use a Logging System
+        //System.out.println("Parsing: " + input);
         try (JsonParser p = this.mapper.getFactory().createParser(input))
         {
             return this.mapper.readValue(p, type);
