@@ -53,7 +53,8 @@ public class HS110Client
     private <T> T parse(String input, Class<T> type) throws IOException
     {
         if (input == null) return null;
-        System.out.println("Parsing: " + input);
+        //Discuss with @intrbiz to use a Logging System
+        //System.out.println("Parsing: " + input);
         try (JsonParser p = this.mapper.getFactory().createParser(input))
         {
             return this.mapper.readValue(p, type);
@@ -166,28 +167,5 @@ public class HS110Client
         }
         return sb.toString();
     }
-    
-    public static void main(String[] args) throws Exception
-    {
-        HS110Client plug = new HS110Client("10.19.32.228");
-        System.out.println(plug.sysInfo());
-        System.out.println(plug.on());
-        //
-        for (int i = 0; i < 10; i++)
-        {
-            GetRealtime response = plug.consumption();
-            System.out.println("Power: " + response.getPower() + "W, Total Consumption: " + response.getConsumption() + "kWh Current: " + response.getCurrent() + "A Voltage: " + response.getVoltage());
-            Thread.sleep(5000);
-        }
-        //
-        System.out.println(plug.ledOff());
-        Thread.sleep(5000);
-        System.out.println(plug.ledOn());
-        Thread.sleep(5000);
-        //
-        System.out.println(plug.off());
-        Thread.sleep(5000);
-        System.out.println(plug.on());
-        
-    }
+
 }
