@@ -68,6 +68,8 @@
 						</goals>
 						<configuration>
 							<additionalparam>-Xdoclint:none</additionalparam>
+							<source>8</source>
+							<failOnError>false</failOnError>
 						</configuration>
 					</execution>
 				</executions>
