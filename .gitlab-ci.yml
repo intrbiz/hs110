@@ -4,7 +4,8 @@ services:
 
 stages:
   - build
-
+  - sync
+  
 build:
   image: maven:3-jdk-11
   stage: build
@@ -16,7 +17,12 @@ build:
     - "mvn clean install package deploy -B"
   artifacts:
     paths:
+      - 'pom.xml'
+      - '*/pom.xml'
       - '*/target/*.jar'
+      - '*/target/*.app'
+      - '*/target/*.tar.gz'
+      - '*/target/*.sql'
 
 release:
   image: maven:3-jdk-11
@@ -30,4 +36,18 @@ release:
     - "mvn clean install package deploy -B"
   artifacts:
     paths:
+      - 'pom.xml'
+      - '*/pom.xml'
       - '*/target/*.jar'
+      - '*/target/*.app'
+      - '*/target/*.tar.gz'
+      - '*/target/*.sql'
+
+sync:
+  image: 'docker.io/bergamotmonitoring/bergamot-build:latest'
+  stage: sync
+  script:
+    - 'git checkout $CI_COMMIT_REF_NAME'
+    - 'git status'
+    - 'git remote add github "https://intrbiz:${GITHUB_PASS}@github.com/intrbiz/hs110.git"'
+    - 'git push --tags github $CI_COMMIT_REF_NAME'
