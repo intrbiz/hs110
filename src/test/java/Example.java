@@ -9,8 +9,8 @@ public class Example {
         HS110Client plug1 = new HS110Client("172.30.4.139");
         HS110Client plug2 = new HS110Client("172.30.4.140");
         
-        System.out.println(plug1.sysInfo());
-        System.out.println(plug2.sysInfo());
+        System.out.println("1: " + plug1.sysInfo().getSystem().getSysInfo().getAlias());
+        System.out.println("2: " + plug2.sysInfo().getSystem().getSysInfo().getAlias());
         
         plug1.on();
         plug2.on();
@@ -18,9 +18,9 @@ public class Example {
         for (int i = 0; i < 10; i++)
         {
             GetRealtime response1 = plug1.consumption();
-            System.out.println("Power: " + response1.getPower() + "W, Total Consumption: " + response1.getConsumption() + "kWh, Current: " + response1.getCurrent() + "A, Voltage: " + response1.getVoltage() + "V");
+            System.out.println("Power 1: " + response1.getPower() + "W, Total Consumption: " + response1.getConsumption() + "kWh, Current: " + response1.getCurrent() + "A, Voltage: " + response1.getVoltage() + "V");
             GetRealtime response2 = plug2.consumption();
-            System.out.println("Power: " + response2.getPower() + "W, Total Consumption: " + response2.getConsumption() + "kWh, Current: " + response2.getCurrent() + "A, Voltage: " + response2.getVoltage() + "V");
+            System.out.println("Power 2: " + response2.getPower() + "W, Total Consumption: " + response2.getConsumption() + "kWh, Current: " + response2.getCurrent() + "A, Voltage: " + response2.getVoltage() + "V");
             Thread.sleep(5000);
         }
         //

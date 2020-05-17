@@ -49,5 +49,5 @@ sync:
   script:
     - 'git checkout $CI_COMMIT_REF_NAME'
     - 'git status'
-    - 'git remote add github "https://intrbiz:${GITHUB_PASS}@github.com/intrbiz/hs110.git"'
+    - 'git remote | grep "github" && git remote add github "https://intrbiz:${GITHUB_PASS}@github.com/intrbiz/hs110.git"'
     - 'git push --tags github $CI_COMMIT_REF_NAME'
