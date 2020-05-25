@@ -45,25 +45,25 @@ public class GetRealtime extends HS110CallStatus
     @JsonIgnore
     public double getCurrent()
     {
-        return this.currentA != null ? this.currentA : this.currentma != null ? this.currentma * 1000.0D : 0D;
+        return this.currentA != null ? this.currentA : this.currentma != null ? this.currentma / 1000.0D : 0D;
     }
     
     @JsonIgnore
     public double getVoltage()
     {
-        return this.voltageV != null ? this.voltageV : this.voltagemv != null ? this.voltagemv * 1000.0D : 0D;
+        return this.voltageV != null ? this.voltageV : this.voltagemv != null ? this.voltagemv / 1000.0D : 0D;
     }
     
     @JsonIgnore
     public double getPower()
     {
-        return this.powerW != null ? this.powerW : this.powermw != null ? this.powermw * 1000.0D : 0D;
+        return this.powerW != null ? this.powerW : this.powermw != null ? this.powermw / 1000.0D : 0D;
     }
     
     @JsonIgnore
     public double getConsumption()
     {
-        return this.consumptionkWh != null ? this.consumptionkWh : this.consumptionwh != null ? this.consumptionwh * 1000.0D : 0D;
+        return this.consumptionkWh != null ? this.consumptionkWh : this.consumptionwh != null ? this.consumptionwh / 1000.0D : 0D;
     }
     
     // HW V1
