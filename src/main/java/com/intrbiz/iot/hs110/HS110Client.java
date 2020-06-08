@@ -11,6 +11,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.intrbiz.iot.hs110.model.GetDaystat;
+import com.intrbiz.iot.hs110.model.GetMonthstat;
 import com.intrbiz.iot.hs110.model.GetRealtime;
 import com.intrbiz.iot.hs110.model.HS110Response;
 
@@ -31,7 +33,12 @@ public class HS110Client
     private static final byte[] LED_ON = encrypt("{\"system\":{\"set_led_off\":{\"off\": 0}}}");
     
     private static final byte[] LED_OFF = encrypt("{\"system\":{\"set_led_off\":{\"off\": 1}}}");
-    
+
+    // Requests with binds
+    private static final String DAY_STAT_REQUEST = "{\"emeter\":{\"get_daystat\":{\"month\":%1d,\"year\":%4d}}}";
+
+    private static final String MONTH_STAT_REQUEST = "{\"emeter\":{\"get_monthstat\":{\"year\":%4d}}}";
+
     private String address;
     
     private int port = 9999;
@@ -120,7 +127,23 @@ public class HS110Client
             return null;
         return response.getEmeter().getRealtime();
     }
-    
+
+    public GetMonthstat monthstat(int year) throws Exception
+    {
+        HS110Response response = parse(decrypt(send(encrypt(String.format(MONTH_STAT_REQUEST, year)))), HS110Response.class);
+        if (response == null || response.getEmeter() == null || response.getEmeter().getMonthstat() == null)
+            return null;
+        return response.getEmeter().getMonthstat();
+    }
+
+    public GetDaystat daystat(int month, int year) throws Exception
+    {
+        HS110Response response = parse(decrypt(send(encrypt(String.format(DAY_STAT_REQUEST, month, year)))), HS110Response.class);
+        if (response == null || response.getEmeter() == null || response.getEmeter().getDaystat() == null)
+            return null;
+        return response.getEmeter().getDaystat();
+    }
+
     public HS110Response sysInfo() throws Exception
     {
         return parse(decrypt(send(SYSINFO)), HS110Response.class);
